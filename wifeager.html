@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="docTitle">Wifeager™ Weekly Mental Compensation Fund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1ec; --surface:#fffdf9; --surface-2:#faf7f1;
+    --ink:#262019; --ink-soft:#6b6358; --line:#e6e0d6;
+    --accent:#2f6f5e; --accent-soft:#e3efe9; --gold:#b08642; --danger:#b4453a;
+    --shadow:0 1px 2px rgba(38,32,25,.04),0 8px 24px rgba(38,32,25,.06);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);
+    line-height:1.5;-webkit-font-smoothing:antialiased;padding:24px 16px 80px;
+    background-image:radial-gradient(circle at 1px 1px, rgba(38,32,25,.025) 1px, transparent 0);
+    background-size:22px 22px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  .display{font-family:'Fraunces',serif}
+
+  header.app-head{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 30px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:20px;
+    align-items:flex-end;justify-content:space-between;margin-bottom:22px;position:relative;overflow:hidden;
+  }
+  header.app-head:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(47,111,94,.06),transparent 55%);pointer-events:none}
+  .brand-row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .logo-mark{
+    width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--accent),#234f43);
+    color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:20px;
+    box-shadow:0 4px 12px rgba(47,111,94,.28);text-transform:uppercase;
+  }
+  h1.title{font-size:27px;font-weight:600;letter-spacing:-.5px;line-height:1.1}
+  .title sup{font-size:12px;color:var(--gold);font-family:'Plus Jakarta Sans';top:-1em}
+  .subtitle{color:var(--ink-soft);font-size:14px;margin-top:2px}
+  .meta{display:flex;flex-direction:column;gap:8px;align-items:flex-end;text-align:right;z-index:1}
+  .meta-btns{display:flex;gap:8px}
+  .pill{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--line);padding:5px 11px;border-radius:999px;font-weight:600}
+  .pill b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .btn{font-family:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:10px;cursor:pointer;transition:transform .12s ease,box-shadow .15s ease,background .15s}
+  .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost-danger{color:var(--danger);border-color:#ecd2cf}
+  .btn.ghost-danger:hover{background:#fbeeed}
+  .btn.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.accent:hover{box-shadow:0 6px 16px rgba(47,111,94,.3)}
+
+  .grid{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .card-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface-2)}
+  .card-head h2{font-family:'Fraunces',serif;font-size:18px;font-weight:600}
+  .card-head .hint{font-size:12px;color:var(--ink-soft)}
+  .card-body{padding:18px 22px}
+
+  .tbl{width:100%;border-collapse:collapse}
+  .tbl thead th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-soft);font-weight:700;padding:0 10px 10px}
+  .tbl thead th.num,.tbl td.num{text-align:right}
+  .tbl tbody tr{transition:background .15s}
+  .tbl tbody tr:hover{background:var(--surface-2)}
+  .tbl td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:middle}
+  .cell-input,.fee-input{font-family:inherit;font-size:14px;color:var(--ink);border:1px solid transparent;background:transparent;border-radius:8px;padding:8px 10px;width:100%;transition:border .15s,background .15s}
+  .cell-input:hover,.fee-input:hover{background:var(--surface-2)}
+  .cell-input:focus,.fee-input:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px var(--accent-soft)}
+  .cell-input.task{font-weight:600}
+  .cell-input.qty,.cell-input.rate{text-align:right;width:90px;font-variant-numeric:tabular-nums}
+  .rate-wrap{position:relative;display:inline-block}
+  .rate-wrap:before{content:var(--cur,"$");position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-size:13px;pointer-events:none}
+  .cell-input.rate{padding-left:20px;text-align:right}
+  .row-total{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .row-actions{display:flex;gap:4px;justify-content:flex-end}
+  .icon-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:13px;display:grid;place-items:center;color:var(--ink-soft);transition:transform .12s,background .15s,color .15s,border-color .15s}
+  .icon-btn:hover{transform:translateY(-1px)}
+  .icon-btn.dup:hover{color:var(--accent);border-color:var(--accent)}
+  .icon-btn.del:hover{color:var(--danger);border-color:#ecd2cf;background:#fbeeed}
+  .add-row{margin-top:14px}
+
+  .ctrl-block{padding:16px 0;border-top:1px solid var(--line)}
+  .ctrl-block:first-child{border-top:none;padding-top:4px}
+  .ctrl-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .ctrl-label span{font-weight:600;font-size:14px}
+  .ctrl-label .val{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;font-size:14px}
+  .seg{display:flex;gap:6px;flex-wrap:wrap}
+  .seg button{flex:1;min-width:56px;font-family:inherit;font-weight:600;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);padding:9px 8px;border-radius:9px;cursor:pointer;transition:all .15s}
+  .seg button.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 10px rgba(47,111,94,.25)}
+  input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--accent) var(--fill,0%),var(--line) var(--fill,0%));outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid var(--accent);cursor:pointer;box-shadow:0 2px 6px rgba(38,32,25,.2);transition:transform .12s}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--accent);cursor:pointer}
+  .scale-marks{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin-top:6px}
+
+  .fee{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--line);border-radius:11px;margin-bottom:10px;transition:border .15s,background .15s}
+  .fee:hover{background:var(--surface-2)}
+  .fee.on{border-color:var(--accent);background:var(--accent-soft)}
+  .fee .fee-info{flex:1}
+  .fee .fee-name{font-weight:600;font-size:14px}
+  .fee .fee-sub{font-size:12px;color:var(--ink-soft)}
+  .fee .fee-amt{font-weight:700;font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
+  .switch{position:relative;width:42px;height:24px;flex-shrink:0}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;inset:0;background:var(--line);border-radius:99px;transition:.2s;cursor:pointer}
+  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .switch input:checked+.slider{background:var(--accent)}
+  .switch input:checked+.slider:before{transform:translateX(18px)}
+  .fee-qty{width:54px;text-align:center;font-variant-numeric:tabular-nums}
+
+  .brk{font-variant-numeric:tabular-nums}
+  .brk-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;color:var(--ink-soft)}
+  .brk-row b{color:var(--ink);font-weight:600}
+  .brk-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:14px;border-top:2px solid var(--ink)}
+  .brk-total .lbl{font-weight:700;font-size:15px}
+  .brk-total .amt{font-family:'Fraunces',serif;font-weight:600;font-size:34px;letter-spacing:-1px}
+
+  .pay-card .card-body{text-align:center}
+  .pay-due{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-soft);font-weight:600}
+  .pay-amt{font-family:'Fraunces',serif;font-size:46px;font-weight:600;letter-spacing:-1.5px;margin:2px 0 18px;line-height:1}
+  .pay-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:10px;margin-bottom:18px}
+  .method{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 8px;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .method .emo{font-size:24px;transition:transform .2s}
+  .method .nm{font-size:11px;font-weight:600;color:var(--ink-soft);line-height:1.2;text-align:center}
+  .method:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent)}
+  .method:hover .emo{transform:scale(1.2) rotate(-6deg)}
+  .method.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .pay-now{width:100%;font-family:inherit;font-weight:700;font-size:16px;background:linear-gradient(150deg,var(--accent),#234f43);color:#fff;border:none;border-radius:13px;padding:15px;cursor:pointer;box-shadow:0 6px 18px rgba(47,111,94,.3);transition:transform .12s,box-shadow .15s}
+  .pay-now:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(47,111,94,.38)}
+  .pay-now:active{transform:translateY(0)}
+  .shake{animation:shake .5s cubic-bezier(.36,.07,.19,.97) both}
+  @keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-5px)}40%,60%{transform:translateX(5px)}}
+  .pay-note{font-size:12px;color:var(--ink-soft);margin-top:12px;font-style:italic}
+  .pay-note a{color:var(--accent);font-weight:600;text-decoration:none}
+  .pay-note a:hover{text-decoration:underline}
+
+  .hist-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto}
+  .hist-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;cursor:pointer;transition:transform .12s,border-color .15s,background .15s}
+  .hist-item:hover{transform:translateX(2px);border-color:var(--accent);background:var(--surface-2)}
+  .hist-meta{display:flex;flex-direction:column}
+  .hist-meta .id{font-weight:600;font-size:13px}
+  .hist-meta .dt{font-size:11px;color:var(--ink-soft)}
+  .hist-amt{font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent)}
+  .hist-del{color:var(--ink-soft);font-size:14px;padding:2px 6px;border-radius:6px}
+  .hist-del:hover{color:var(--danger);background:#fbeeed}
+  .empty{text-align:center;color:var(--ink-soft);font-size:13px;padding:24px 0;font-style:italic}
+
+  /* SETTINGS DRAWER */
+  .overlay{position:fixed;inset:0;background:rgba(38,32,25,.42);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:500}
+  .overlay.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:440px;max-width:92vw;background:var(--surface);box-shadow:-12px 0 40px rgba(38,32,25,.18);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:501;display:flex;flex-direction:column}
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:var(--surface-2)}
+  .drawer-head h2{font-family:'Fraunces',serif;font-size:20px;font-weight:600}
+  .drawer-body{padding:8px 24px 24px;overflow-y:auto;flex:1}
+  .drawer-foot{padding:16px 24px;border-top:1px solid var(--line);display:flex;gap:10px;background:var(--surface-2)}
+  .set-group{padding:18px 0;border-top:1px solid var(--line)}
+  .set-group:first-child{border-top:none}
+  .set-group h3{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink-soft);margin-bottom:12px;font-weight:700}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  .field input[type=text],.field input[type=number],.field input[type=url]{width:100%;font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);transition:border .15s,box-shadow .15s}
+  .field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .field-row{display:flex;gap:10px}
+  .field-row .field{flex:1}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+  .swatch{width:34px;height:34px;border-radius:9px;cursor:pointer;border:2px solid transparent;transition:transform .12s,border-color .15s}
+  .swatch:hover{transform:scale(1.1)}
+  .swatch.active{border-color:var(--ink)}
+  .set-task,.set-fee{display:flex;gap:8px;align-items:center;margin-bottom:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}
+  .set-task input,.set-fee input{font-family:inherit;font-size:13px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);min-width:0}
+  .set-task .st-name,.set-fee .sf-name{flex:1}
+  .set-task .st-num{width:62px;text-align:right}
+  .set-fee .sf-amt{width:78px;text-align:right}
+  .mini-del{width:28px;height:28px;flex-shrink:0;border-radius:7px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink-soft);font-size:12px}
+  .mini-del:hover{color:var(--danger);border-color:#ecd2cf;background:#fbeeed}
+  .toggle-row{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:8px 0}
+  .toggle-row span{font-size:13px;font-weight:600}
+
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+  .conf{position:absolute;width:9px;height:14px;opacity:0;will-change:transform}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transition:.3s;z-index:10000;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:880px){
+    .grid{grid-template-columns:1fr}
+    header.app-head{flex-direction:column;align-items:flex-start}
+    .meta{align-items:flex-start;text-align:left}
+    .cell-input.qty,.cell-input.rate{width:72px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="app-head">
+    <div style="z-index:1">
+      <div class="brand-row">
+        <div class="logo-mark" id="logoMark">W</div>
+        <div>
+          <h1 class="title display" id="brandTitle"></h1>
+          <div class="subtitle" id="brandSub"></div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="pill">Invoice <b id="invId">—</b></span>
+      <span class="pill">Week of <b id="weekRange">—</b></span>
+      <div class="meta-btns">
+        <button class="btn" id="settingsBtn">⚙ Customize</button>
+        <button class="btn ghost-danger" id="resetBtn">↺ Reset Week</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div class="card" style="margin-bottom:22px">
+        <div class="card-head"><h2>Itemized Labor</h2><span class="hint">Rates editable per unit</span></div>
+        <div class="card-body" style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:40%">Task</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Total</th><th class="num" style="width:70px"></th>
+            </tr></thead>
+            <tbody id="taskBody"></tbody>
+          </table>
+          <button class="btn add-row" id="addTask">+ Add Task</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Adjustments &amp; Surcharges</h2></div>
+        <div class="card-body">
+          <div class="ctrl-block">
+            <div class="ctrl-label"><span id="taxName">Mental Load Tax</span><span class="val" id="taxVal">20%</span></div>
+            <div class="seg" id="taxSeg"></div>
+          </div>
+          <div class="ctrl-block">
+            <div class="ctrl-label"><span id="stressName">Stress Multiplier</span><span class="val" id="stressVal">1.0×</span></div>
+            <input type="range" id="stress" min="1" max="5" step="0.1" value="1">
+            <div class="scale-marks" id="stressMarks"><span>1× calm</span><span>3× tense</span><span>5× meltdown</span></div>
+          </div>
+          <div class="ctrl-block">
+            <div style="font-weight:600;font-size:14px;margin-bottom:12px">Optional Fees</div>
+            <div id="feeList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:22px">
+        <div class="card-head"><h2>Breakdown</h2></div>
+        <div class="card-body brk" id="brkBody"></div>
+      </div>
+
+      <div class="card pay-card" style="margin-bottom:22px">
+        <div class="card-head"><h2>Settle Balance</h2></div>
+        <div class="card-body">
+          <div class="pay-due">Amount Due</div>
+          <div class="pay-amt display" id="payAmt">$0.00</div>
+          <div class="pay-methods" id="payMethods"></div>
+          <button class="pay-now" id="payNow">Pay Now</button>
+          <div class="pay-note" id="payNote"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Past Weeks</h2><span class="hint" id="histCount">0 saved</span></div>
+        <div class="card-body"><div class="hist-list" id="histList"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head"><h2>Customize</h2><button class="icon-btn" id="closeDrawer">✕</button></div>
+  <div class="drawer-body">
+    <div class="set-group">
+      <h3>Branding</h3>
+      <div class="field"><label>Brand name</label><input type="text" id="setBrand" placeholder="Wifeager"></div>
+      <div class="field"><label>Trademark symbol</label><input type="text" id="setTm" placeholder="™" maxlength="3"></div>
+      <div class="field"><label>Title suffix</label><input type="text" id="setTitleSuffix" placeholder="Weekly Mental Compensation Fund"></div>
+      <div class="field"><label>Subtitle</label><input type="text" id="setSub" placeholder="Automated Household Emotional Labor Accounting System"></div>
+      <div class="field"><label>Invoice prefix</label><input type="text" id="setPrefix" placeholder="WFG" maxlength="6"></div>
+      <div class="field"><label>Currency symbol</label><input type="text" id="setCur" placeholder="$" maxlength="3"></div>
+    </div>
+
+    <div class="set-group">
+      <h3>Accent color</h3>
+      <div class="swatches" id="swatches"></div>
+    </div>
+
+    <div class="set-group">
+      <h3>Labels</h3>
+      <div class="field"><label>Tax label</label><input type="text" id="setTaxName" placeholder="Mental Load Tax"></div>
+      <div class="field"><label>Tax options (comma % values)</label><input type="text" id="setTaxOpts" placeholder="10,15,20,25,30"></div>
+      <div class="field"><label>Multiplier label</label><input type="text" id="setStressName" placeholder="Stress Multiplier"></div>
+      <div class="field-row">
+        <div class="field"><label>Min ×</label><input type="number" id="setStressMin" min="1" step="0.5"></div>
+        <div class="field"><label>Max ×</label><input type="number" id="setStressMax" min="1" step="0.5"></div>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <h3>Default tasks</h3>
+      <div id="setTasks"></div>
+      <button class="btn" id="setAddTask" style="margin-top:6px">+ Add default task</button>
+    </div>
+
+    <div class="set-group">
+      <h3>Optional fees</h3>
+      <div id="setFees"></div>
+      <button class="btn" id="setAddFee" style="margin-top:6px">+ Add fee</button>
+    </div>
+
+    <div class="set-group">
+      <h3>Payment methods (emoji + label)</h3>
+      <div id="setMethods"></div>
+      <button class="btn" id="setAddMethod" style="margin-top:6px">+ Add method</button>
+    </div>
+
+    <div class="set-group">
+      <h3>Footer / CTA</h3>
+      <div class="field"><label>Footer note</label><input type="text" id="setFootNote" placeholder="Payment plans available. Interest accrues in silence."></div>
+      <div class="field"><label>CTA link text (optional)</label><input type="text" id="setCtaText" placeholder="Join the community →"></div>
+      <div class="field"><label>CTA URL (optional)</label><input type="url" id="setCtaUrl" placeholder="https://skool.com/your-community"></div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn accent" id="saveSettings" style="flex:1">Save changes</button>
+    <button class="btn ghost-danger" id="resetSettings">Reset to defaults</button>
+  </div>
+</aside>
+
+<div id="confetti"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- DEFAULTS ---------- */
+const DEFAULTS={
+  brand:"Wifeager", tm:"™", titleSuffix:"Weekly Mental Compensation Fund",
+  sub:"Automated Household Emotional Labor Accounting System",
+  prefix:"WFG", currency:"$", accent:"#2f6f5e",
+  taxName:"Mental Load Tax", taxOpts:[10,15,20,25,30], taxDefault:20,
+  stressName:"Stress Multiplier", stressMin:1, stressMax:5,
+  tasks:[
+    {name:"Remembering appointments", qty:8, rate:12},
+    {name:"Finding lost items", qty:11, rate:8},
+    {name:"Emotional support sessions", qty:4, rate:45},
+    {name:"Family logistics management", qty:1, rate:120},
+    {name:"Explaining things already said", qty:14, rate:6},
+  ],
+  fees:[
+    {key:"wi", name:"Weaponized Incompetence Surcharge", sub:"\"I didn't know how the dishwasher works\"", amt:100, type:"toggle"},
+    {key:"panic", name:"Last-Minute Panic Tax", sub:"\"We need a gift in 20 minutes\"", amt:50, type:"toggle"},
+    {key:"repeat", name:"Repeated Question Fee", sub:"per occurrence", amt:25, type:"qty"},
+  ],
+  methods:[
+    {emo:"☕", nm:"Coffee"},{emo:"💐", nm:"Flowers"},
+    {emo:"🎟️", nm:"\"You were right\" coupon"},{emo:"🍽️", nm:"Date night"},{emo:"💵", nm:"Cash"},
+  ],
+  footNote:"Payment plans available. Interest accrues in silence.",
+  ctaText:"", ctaUrl:"",
+};
+const ACCENTS=["#2f6f5e","#b4453a","#9a5fb0","#3a6ea5","#c2691f","#4a7c2f","#262019","#b08642"];
+const accentDark={"#2f6f5e":"#234f43","#b4453a":"#8e342b","#9a5fb0":"#7a4690","#3a6ea5":"#2b5480","#c2691f":"#984f14","#4a7c2f":"#385f23","#262019":"#000","#b08642":"#8c6831"};
+const SKEY="wifeager_settings_v1", HKEY="wifeager_history_v1";
+
+/* ---------- STATE ---------- */
+let cfg=loadSettings();
+let state={tasks:[], tax:0, stress:1, feeState:{}, invId:null};
+const $=s=>document.querySelector(s);
+const cur=()=>cfg.currency;
+const money=n=>cur()+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function loadSettings(){
+  try{const s=JSON.parse(localStorage.getItem(SKEY)); if(s) return Object.assign(structuredClone(DEFAULTS),s);}catch{}
+  return structuredClone(DEFAULTS);
+}
+function saveSettingsToStorage(){ localStorage.setItem(SKEY,JSON.stringify(cfg)); }
+
+/* ---------- WEEK / INVOICE ---------- */
+function weekDates(d=new Date()){
+  const day=d.getDay();
+  const mon=new Date(d); mon.setDate(d.getDate()-((day+6)%7)); mon.setHours(0,0,0,0);
+  const sun=new Date(mon); sun.setDate(mon.getDate()+6);
+  return [mon,sun];
+}
+function fmtRange([a,b]){const o={month:"short",day:"numeric"};return a.toLocaleDateString("en-US",o)+" – "+b.toLocaleDateString("en-US",o);}
+function newInvoiceId(){
+  const [m]=weekDates(); const y=m.getFullYear();
+  const start=new Date(y,0,1);
+  const wk=Math.ceil((((m-start)/86400000)+start.getDay()+1)/7);
+  const rnd=Math.floor(Math.random()*900+100);
+  return (cfg.prefix||"INV")+"-"+y+"-W"+String(wk).padStart(2,"0")+"-"+rnd;
+}
+
+/* ---------- APPLY BRANDING ---------- */
+function applyBranding(){
+  const dark=accentDark[cfg.accent]||cfg.accent;
+  document.documentElement.style.setProperty("--accent",cfg.accent);
+  document.documentElement.style.setProperty("--cur",'"'+cfg.currency+'"');
+  // logo letter from brand name
+  $("#logoMark").textContent=(cfg.brand||"?").trim().charAt(0)||"?";
+  $("#brandTitle").innerHTML=escapeHtml(cfg.brand)+(cfg.tm?'<sup>'+escapeHtml(cfg.tm)+'</sup>':'')+' '+escapeHtml(cfg.titleSuffix);
+  $("#brandSub").textContent=cfg.sub;
+  $("#docTitle").textContent=cfg.brand+cfg.tm+" "+cfg.titleSuffix;
+  $("#taxName").textContent=cfg.taxName;
+  $("#stressName").textContent=cfg.stressName;
+  $("#stress").min=cfg.stressMin; $("#stress").max=cfg.stressMax;
+  $("#stressMarks").innerHTML=`<span>${cfg.stressMin}× calm</span><span>tense</span><span>${cfg.stressMax}× meltdown</span>`;
+  // footer + cta
+  let note=escapeHtml(cfg.footNote||"");
+  if(cfg.ctaText && cfg.ctaUrl){ note+=' <br><a href="'+escapeAttr(cfg.ctaUrl)+'" target="_blank" rel="noopener">'+escapeHtml(cfg.ctaText)+'</a>'; }
+  $("#payNote").innerHTML=note;
+  // gradient buttons use accent vars already; refresh pay-now/logo gradients
+  document.querySelectorAll(".logo-mark,.pay-now").forEach(el=>{
+    el.style.background=`linear-gradient(150deg,${cfg.accent},${dark})`;
+  });
+}
+
+/* ---------- BUILD DYNAMIC CONTROLS ---------- */
+function buildTaxSeg(){
+  const seg=$("#taxSeg"); seg.innerHTML="";
+  cfg.taxOpts.forEach(p=>{
+    const b=document.createElement("button");
+    b.textContent=p+"%"; b.dataset.tax=(p/100);
+    if(Math.abs(state.tax-p/100)<1e-9) b.classList.add("active");
+    seg.appendChild(b);
+  });
+}
+function buildFees(){
+  const list=$("#feeList"); list.innerHTML="";
+  cfg.fees.forEach(f=>{
+    const div=document.createElement("div"); div.className="fee"; div.dataset.fk=f.key;
+    if(f.type==="toggle"){
+      const on=!!state.feeState[f.key];
+      if(on) div.classList.add("on");
+      div.innerHTML=`<label class="switch"><input type="checkbox" data-fee="${f.key}" ${on?"checked":""}><span class="slider"></span></label>
+        <div class="fee-info"><div class="fee-name">${escapeHtml(f.name)}</div><div class="fee-sub">${escapeHtml(f.sub)}</div></div>
+        <div class="fee-amt">+${money(f.amt)}</div>`;
+    } else {
+      const q=state.feeState[f.key]||0;
+      if(q>0) div.classList.add("on");
+      div.innerHTML=`<div class="fee-info"><div class="fee-name">${escapeHtml(f.name)}</div><div class="fee-sub">${money(f.amt)} ${escapeHtml(f.sub)}</div></div>
+        <input class="fee-input fee-qty" type="number" min="0" value="${q}" data-feeqty="${f.key}">
+        <div class="fee-amt" data-feeamt="${f.key}">+${money(q*f.amt)}</div>`;
+    }
+    list.appendChild(div);
+  });
+}
+function buildMethods(){
+  const m=$("#payMethods"); m.innerHTML="";
+  cfg.methods.forEach(x=>{
+    const d=document.createElement("div"); d.className="method"; d.dataset.m=x.nm;
+    d.innerHTML=`<span class="emo">${escapeHtml(x.emo)}</span><span class="nm">${escapeHtml(x.nm)}</span>`;
+    m.appendChild(d);
+  });
+}
+
+/* ---------- ESCAPING ---------- */
+function escapeHtml(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function escapeAttr(s){return escapeHtml(s);}
+
+/* ---------- RENDER TABLE ---------- */
+function renderTasks(){
+  const body=$("#taskBody"); body.innerHTML="";
+  state.tasks.forEach((t,i)=>{
+    const tr=document.createElement("tr");
+    const total=(+t.qty||0)*(+t.rate||0);
+    tr.innerHTML=`
+      <td><input class="cell-input task" value="${escapeHtml(t.name)}" data-i="${i}" data-k="name" placeholder="Task description"></td>
+      <td class="num"><input class="cell-input qty" type="number" min="0" value="${t.qty}" data-i="${i}" data-k="qty"></td>
+      <td class="num"><span class="rate-wrap"><input class="cell-input rate" type="number" min="0" step="0.5" value="${t.rate}" data-i="${i}" data-k="rate"></span></td>
+      <td class="num row-total">${money(total)}</td>
+      <td class="num"><div class="row-actions">
+        <button class="icon-btn dup" data-dup="${i}" title="Duplicate">⧉</button>
+        <button class="icon-btn del" data-del="${i}" title="Delete">✕</button>
+      </div></td>`;
+    body.appendChild(tr);
+  });
+}
+
+/* ---------- CALC ---------- */
+function calc(){
+  const subtotal=state.tasks.reduce((s,t)=>s+(+t.qty||0)*(+t.rate||0),0);
+  const stressed=subtotal*state.stress;
+  const stressAdd=stressed-subtotal;
+  const taxed=stressed*state.tax;
+  let feeLines=[], fees=0;
+  cfg.fees.forEach(f=>{
+    if(f.type==="toggle" && state.feeState[f.key]){ fees+=f.amt; feeLines.push({name:f.name, amt:f.amt}); }
+    if(f.type==="qty"){ const q=state.feeState[f.key]||0; if(q>0){ const a=q*f.amt; fees+=a; feeLines.push({name:f.name+` (×${q})`, amt:a}); } }
+  });
+  const total=stressed+taxed+fees;
+  return {subtotal,stressAdd,stressed,taxed,feeLines,total};
+}
+
+function renderBreakdown(c){
+  const b=$("#brkBody");
+  let html=`<div class="brk-row"><span>Labor subtotal</span><b>${money(c.subtotal)}</b></div>
+    <div class="brk-row"><span>${escapeHtml(cfg.stressName)} (${state.stress.toFixed(1)}×)</span><b>+${money(c.stressAdd)}</b></div>
+    <div class="brk-row"><span>${escapeHtml(cfg.taxName)} (${Math.round(state.tax*100)}%)</span><b>+${money(c.taxed)}</b></div>`;
+  c.feeLines.forEach(f=>{ html+=`<div class="brk-row"><span>${escapeHtml(f.name)}</span><b>+${money(f.amt)}</b></div>`; });
+  html+=`<div class="brk-total"><span class="lbl">Total Owed</span><span class="amt display">${money(c.total)}</span></div>`;
+  b.innerHTML=html;
+}
+
+function render(){
+  renderTasks();
+  const c=calc();
+  renderBreakdown(c);
+  $("#payAmt").textContent=money(c.total);
+  $("#taxVal").textContent=Math.round(state.tax*100)+"%";
+  $("#stressVal").textContent=state.stress.toFixed(1)+"×";
+  const fill=((state.stress-cfg.stressMin)/(cfg.stressMax-cfg.stressMin))*100;
+  $("#stress").style.setProperty("--fill",fill+"%");
+}
+
+/* ---------- LIGHT TOTALS (keep focus on table edits) ---------- */
+function updateTotals(){
+  const c=calc();
+  renderBreakdown(c);
+  $("#payAmt").textContent=money(c.total);
+}
+
+/* ---------- EVENTS: TABLE ---------- */
+$("#taskBody").addEventListener("input",e=>{
+  const i=e.target.dataset.i, k=e.target.dataset.k; if(i==null) return;
+  state.tasks[i][k]= k==="name"? e.target.value : (e.target.value===""?0:+e.target.value);
+  const row=e.target.closest("tr");
+  if(row) row.querySelector(".row-total").textContent=money((+state.tasks[i].qty||0)*(+state.tasks[i].rate||0));
+  updateTotals();
+});
+$("#taskBody").addEventListener("click",e=>{
+  if(e.target.dataset.del!=null){ state.tasks.splice(+e.target.dataset.del,1); render(); }
+  if(e.target.dataset.dup!=null){ const i=+e.target.dataset.dup; state.tasks.splice(i+1,0,{...state.tasks[i]}); render(); }
+});
+$("#addTask").addEventListener("click",()=>{ state.tasks.push({name:"",qty:1,rate:10}); render();
+  const inputs=document.querySelectorAll(".cell-input.task"); inputs[inputs.length-1].focus(); });
+
+/* ---------- EVENTS: ADJUSTMENTS (delegated) ---------- */
+$("#taxSeg").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  state.tax=+b.dataset.tax;
+  [...$("#taxSeg").children].forEach(x=>x.classList.toggle("active",x===b));
+  render();
+});
+$("#stress").addEventListener("input",e=>{ state.stress=+e.target.value; render(); });
+$("#feeList").addEventListener("change",e=>{
+  if(e.target.dataset.fee){ state.feeState[e.target.dataset.fee]=e.target.checked; e.target.closest(".fee").classList.toggle("on",e.target.checked); render(); }
+});
+$("#feeList").addEventListener("input",e=>{
+  if(e.target.dataset.feeqty){
+    const key=e.target.dataset.feeqty, q=Math.max(0,+e.target.value||0);
+    state.feeState[key]=q;
+    const f=cfg.fees.find(x=>x.key===key);
+    const amtEl=document.querySelector(`[data-feeamt="${key}"]`);
+    if(amtEl) amtEl.textContent="+"+money(q*f.amt);
+    e.target.closest(".fee").classList.toggle("on",q>0);
+    updateTotals(); $("#stressVal");
+  }
+});
+
+/* ---------- PAYMENT ---------- */
+let selMethod=null;
+$("#payMethods").addEventListener("click",e=>{
+  const m=e.target.closest(".method"); if(!m) return;
+  document.querySelectorAll(".method").forEach(x=>x.classList.remove("sel"));
+  m.classList.add("sel"); selMethod=m.dataset.m;
+});
+$("#payNow").addEventListener("click",()=>{
+  const c=calc();
+  if(c.total<=0){ shake(); toast("Nothing owed… for now."); return; }
+  saveInvoice(c.total);
+  if(selMethod){ confetti(); toast(`Payment accepted: ${selMethod}. Debt cleared.`); }
+  else { shake(); toast("Select a payment method, please."); }
+});
+function shake(){ const b=$("#payNow"); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
+
+/* ---------- HISTORY ---------- */
+function getHistory(){ try{return JSON.parse(localStorage.getItem(HKEY))||[]}catch{return[]} }
+function setHistory(h){ localStorage.setItem(HKEY,JSON.stringify(h)); }
+function saveInvoice(total){
+  const h=getHistory();
+  const entry={ id:state.invId, total, range:fmtRange(weekDates()),
+    savedAt:new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}),
+    cur:cfg.currency,
+    snapshot:structuredClone({tasks:state.tasks,tax:state.tax,stress:state.stress,feeState:state.feeState}) };
+  const ix=h.findIndex(x=>x.id===entry.id);
+  if(ix>=0) h[ix]=entry; else h.unshift(entry);
+  setHistory(h.slice(0,50)); renderHistory();
+}
+function renderHistory(){
+  const h=getHistory(); const list=$("#histList");
+  $("#histCount").textContent=h.length+" saved";
+  if(!h.length){ list.innerHTML='<div class="empty">No invoices saved yet.</div>'; return; }
+  list.innerHTML="";
+  h.forEach(e=>{
+    const d=document.createElement("div"); d.className="hist-item";
+    const amt=(e.cur||cfg.currency)+Number(e.total).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+    d.innerHTML=`<div class="hist-meta"><span class="id">${escapeHtml(e.id)}</span><span class="dt">${escapeHtml(e.range)} · saved ${escapeHtml(e.savedAt)}</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><span class="hist-amt">${amt}</span><span class="hist-del" data-del="${escapeHtml(e.id)}" title="Delete">🗑</span></div>`;
+    d.addEventListener("click",ev=>{
+      if(ev.target.dataset.del){ setHistory(getHistory().filter(x=>x.id!==ev.target.dataset.del)); renderHistory(); return; }
+      loadInvoice(e);
+    });
+    list.appendChild(d);
+  });
+}
+function loadInvoice(e){
+  const s=e.snapshot;
+  state.tasks=structuredClone(s.tasks); state.tax=s.tax; state.stress=s.stress;
+  state.feeState=structuredClone(s.feeState||{}); state.invId=e.id;
+  $("#invId").textContent=e.id; $("#weekRange").textContent=e.range;
+  buildTaxSeg(); buildFees();
+  $("#stress").value=state.stress;
+  render(); toast("Loaded "+e.id); window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- RESET WEEK ---------- */
+function freshWeek(){
+  state.tasks=structuredClone(cfg.tasks);
+  state.tax=cfg.taxDefault/100; state.stress=cfg.stressMin; state.feeState={};
+  state.invId=newInvoiceId();
+  $("#invId").textContent=state.invId; $("#weekRange").textContent=fmtRange(weekDates());
+  $("#stress").value=cfg.stressMin;
+  buildTaxSeg(); buildFees(); buildMethods();
+  document.querySelectorAll(".method").forEach(x=>x.classList.remove("sel")); selMethod=null;
+  render();
+}
+$("#resetBtn").addEventListener("click",()=>{ freshWeek(); toast("Fresh week. Clean slate."); });
+
+/* ---------- CONFETTI ---------- */
+function confetti(){
+  const root=$("#confetti");
+  const colors=[cfg.accent,"#b08642","#b4453a","#e3efe9","#262019"];
+  for(let i=0;i<90;i++){
+    const c=document.createElement("div"); c.className="conf";
+    c.style.left=(Math.random()*100)+"vw"; c.style.top="-20px"; c.style.background=colors[i%colors.length];
+    c.style.borderRadius=Math.random()>.5?"2px":"50%";
+    const dur=2200+Math.random()*1400, drift=(Math.random()-.5)*240, rot=Math.random()*720;
+    root.appendChild(c);
+    c.animate([{transform:"translate(0,0) rotate(0deg)",opacity:1},{transform:`translate(${drift}px,105vh) rotate(${rot}deg)`,opacity:1}],{duration:dur,easing:"cubic-bezier(.2,.6,.4,1)"}).onfinish=()=>c.remove();
+  }
+}
+
+/* ---------- TOAST ---------- */
+let toastT;
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600); }
+
+/* ===================================================================
+   SETTINGS DRAWER
+=================================================================== */
+function openDrawer(){ populateSettingsForm(); $("#overlay").classList.add("open"); $("#drawer").classList.add("open"); }
+function closeDrawer(){ $("#overlay").classList.remove("open"); $("#drawer").classList.remove("open"); }
+$("#settingsBtn").addEventListener("click",openDrawer);
+$("#closeDrawer").addEventListener("click",closeDrawer);
+$("#overlay").addEventListener("click",closeDrawer);
+
+function populateSettingsForm(){
+  $("#setBrand").value=cfg.brand; $("#setTm").value=cfg.tm;
+  $("#setTitleSuffix").value=cfg.titleSuffix; $("#setSub").value=cfg.sub;
+  $("#setPrefix").value=cfg.prefix; $("#setCur").value=cfg.currency;
+  $("#setTaxName").value=cfg.taxName; $("#setTaxOpts").value=cfg.taxOpts.join(",");
+  $("#setStressName").value=cfg.stressName; $("#setStressMin").value=cfg.stressMin; $("#setStressMax").value=cfg.stressMax;
+  $("#setFootNote").value=cfg.footNote; $("#setCtaText").value=cfg.ctaText||""; $("#setCtaUrl").value=cfg.ctaUrl||"";
+  // swatches
+  const sw=$("#swatches"); sw.innerHTML="";
+  ACCENTS.forEach(col=>{
+    const d=document.createElement("div"); d.className="swatch"+(col===cfg.accent?" active":""); d.style.background=col; d.dataset.col=col;
+    d.addEventListener("click",()=>{ [...sw.children].forEach(x=>x.classList.remove("active")); d.classList.add("active"); });
+    sw.appendChild(d);
+  });
+  // tasks
+  const st=$("#setTasks"); st.innerHTML="";
+  cfg.tasks.forEach((t,i)=>st.appendChild(taskRow(t,i)));
+  // fees
+  const sf=$("#setFees"); sf.innerHTML="";
+  cfg.fees.forEach((f,i)=>sf.appendChild(feeRow(f,i)));
+  // methods
+  const sm=$("#setMethods"); sm.innerHTML="";
+  cfg.methods.forEach((m,i)=>sm.appendChild(methodRow(m,i)));
+}
+function taskRow(t){
+  const d=document.createElement("div"); d.className="set-task";
+  d.innerHTML=`<input class="st-name" type="text" value="${escapeHtml(t.name)}" placeholder="Task">
+    <input class="st-num st-qty" type="number" min="0" value="${t.qty}" title="Qty">
+    <input class="st-num st-rate" type="number" min="0" step="0.5" value="${t.rate}" title="Rate">
+    <button class="mini-del" title="Remove">✕</button>`;
+  d.querySelector(".mini-del").addEventListener("click",()=>d.remove());
+  return d;
+}
+function feeRow(f){
+  const d=document.createElement("div"); d.className="set-fee";
+  d.innerHTML=`<input class="sf-name" type="text" value="${escapeHtml(f.name)}" placeholder="Fee name">
+    <input class="sf-amt" type="number" min="0" value="${f.amt}" title="Amount">
+    <select class="sf-type" style="font-family:inherit;font-size:13px;padding:7px;border:1px solid var(--line);border-radius:7px;background:var(--surface)">
+      <option value="toggle"${f.type==="toggle"?" selected":""}>on/off</option>
+      <option value="qty"${f.type==="qty"?" selected":""}>per-qty</option>
+    </select>
+    <button class="mini-del" title="Remove">✕</button>`;
+  d.dataset.sub=f.sub||""; d.dataset.key=f.key||"";
+  d.querySelector(".mini-del").addEventListener("click",()=>d.remove());
+  return d;
+}
+function methodRow(m){
+  const d=document.createElement("div"); d.className="set-fee";
+  d.innerHTML=`<input class="sf-emo" type="text" value="${escapeHtml(m.emo)}" placeholder="🎁" style="width:54px;text-align:center">
+    <input class="sf-name" type="text" value="${escapeHtml(m.nm)}" placeholder="Label">
+    <button class="mini-del" title="Remove">✕</button>`;
+  d.querySelector(".mini-del").addEventListener("click",()=>d.remove());
+  return d;
+}
+$("#setAddTask").addEventListener("click",()=>$("#setTasks").appendChild(taskRow({name:"",qty:1,rate:10})));
+$("#setAddFee").addEventListener("click",()=>$("#setFees").appendChild(feeRow({name:"",amt:25,type:"toggle",sub:"",key:""})));
+$("#setAddMethod").addEventListener("click",()=>$("#setMethods").appendChild(methodRow({emo:"🎁",nm:""})));
+
+$("#saveSettings").addEventListener("click",()=>{
+  // gather
+  cfg.brand=$("#setBrand").value.trim()||"Brand";
+  cfg.tm=$("#setTm").value;
+  cfg.titleSuffix=$("#setTitleSuffix").value;
+  cfg.sub=$("#setSub").value;
+  cfg.prefix=($("#setPrefix").value.trim()||"INV").toUpperCase();
+  cfg.currency=$("#setCur").value.trim()||"$";
+  cfg.accent=($("#swatches .active")||{}).dataset?.col||cfg.accent;
+  cfg.taxName=$("#setTaxName").value.trim()||"Tax";
+  cfg.taxOpts=$("#setTaxOpts").value.split(",").map(x=>parseFloat(x)).filter(x=>!isNaN(x)); if(!cfg.taxOpts.length) cfg.taxOpts=[10,20,30];
+  if(!cfg.taxOpts.includes(cfg.taxDefault)) cfg.taxDefault=cfg.taxOpts[Math.floor(cfg.taxOpts.length/2)];
+  cfg.stressName=$("#setStressName").value.trim()||"Multiplier";
+  cfg.stressMin=Math.max(0.1,+$("#setStressMin").value||1);
+  cfg.stressMax=Math.max(cfg.stressMin+0.1,+$("#setStressMax").value||5);
+  cfg.footNote=$("#setFootNote").value;
+  cfg.ctaText=$("#setCtaText").value.trim(); cfg.ctaUrl=$("#setCtaUrl").value.trim();
+  // tasks
+  cfg.tasks=[...$("#setTasks").children].map(r=>({
+    name:r.querySelector(".st-name").value, qty:+r.querySelector(".st-qty").value||0, rate:+r.querySelector(".st-rate").value||0
+  })).filter(t=>t.name.trim()!=="");
+  if(!cfg.tasks.length) cfg.tasks=[{name:"New task",qty:1,rate:10}];
+  // fees
+  cfg.fees=[...$("#setFees").children].map((r,i)=>({
+    key:(r.dataset.key||("fee"+i+"_"+Date.now())).replace(/\s+/g,"_"),
+    name:r.querySelector(".sf-name").value, amt:+r.querySelector(".sf-amt").value||0,
+    type:r.querySelector(".sf-type").value, sub:r.dataset.sub||""
+  })).filter(f=>f.name.trim()!=="");
+  // methods
+  cfg.methods=[...$("#setMethods").children].map(r=>({
+    emo:r.querySelector(".sf-emo").value||"💳", nm:r.querySelector(".sf-name").value
+  })).filter(m=>m.nm.trim()!=="");
+  if(!cfg.methods.length) cfg.methods=[{emo:"💵",nm:"Cash"}];
+
+  saveSettingsToStorage();
+  applyBranding();
+  freshWeek();
+  closeDrawer();
+  toast("Settings saved.");
+});
+
+$("#resetSettings").addEventListener("click",()=>{
+  if(!confirm("Reset all customization back to defaults?")) return;
+  cfg=structuredClone(DEFAULTS); saveSettingsToStorage();
+  applyBranding(); freshWeek(); populateSettingsForm(); toast("Reset to defaults.");
+});
+
+/* ---------- INIT ---------- */
+function init(){
+  applyBranding();
+  freshWeek();
+  renderHistory();
+}
+init();
+</script>
+</body>
+</html>
